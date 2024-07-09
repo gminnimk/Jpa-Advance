@@ -45,4 +45,14 @@ public class Food {
     // userList는 Food 엔티티가 User 엔티티들과 관계를 맺기 위해 사용되는 컬렉션
     // 이 필드를 통해서 Food 엔티티는 여러 개의 User 엔티티와 관계를 맺을 수 있음
     private List<User> userList = new ArrayList<>();
+
+
+    // 다대다 관계에서 주로 사용, 특정 Food 객체에 속한 User 객체들을 추가할 때 사용.
+    // 이와 동시에 User 객체에도 해당 Food 객체를 추가하여 양방향 관계 설정
+    public void addUserList(User user) {
+        // this는 Food 객체를 가리키고, userList는 Food 엔티티에서 관리하는 User 객체들의 목록을 나타냄
+        // 이곳에 파라미터로 전달받은 user 객체를 추가함.
+        this.userList.add(user); // 외래 키(연관 관계) 설정
+        user.getFoodList().add(this);
+    }
 }

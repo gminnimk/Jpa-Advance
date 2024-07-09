@@ -27,41 +27,24 @@ public class User {
 
     private String name;  // 사용자의 이름
 
-    // @OneToMany : 한 User가 여러 Food 객체와 관계를 맺을 수 있음을 나타냄
-    // mappedBy = user 는 Food 엔티티에서 user 필드가 이 관계의 주인임을 의미.
-//    @OneToMany(mappedBy = "user")
+    /*
+    @ManyToMany(mappedBy = "userList"): Food 엔티티 클래스에서 userList 필드를 사용하여 매핑된 양방향 다대다 관계를 정의
+    mappedBy 속성은 User 엔티티가 Food 엔티티에서 어떤 필드에 의해 매핑되었는지를 지정
+    이 경우 userList 필드가 Food 엔티티에서 User 엔티티와의 관계를 매핑
+     */
+    @ManyToMany(mappedBy = "userList")
 
-    // foodList는 User가 가지고 있는 여러 Food 객체를 저장하는 리스트.
-    // new ArrayList<>()로 초기화하여 User 객체가 생성될 때 foodList가 빈 리스트로 초기화되도록 함.
-//    private List<Food> foodList = new ArrayList<>();
+    // private List<Food> foodList = new ArrayList<>();: User 엔티티가 가지는 Food 엔티티의 컬렉션입니다.
+    // 이 필드를 통해 한 User 엔티티가 여러 Food 엔티티와 관계를 맺을 수 있음
+    private List<Food> foodList = new ArrayList<>();
 
-//    public void addFoodList(Food food) {
-//        this.foodList.add(food);
-//        food.setUser(this); // 외래 키(연관 관계) 설정
-//    }
-
-
-    // @OneToOne을 명시함으로써 User와 Food 간의 1대1 양방향 관계 설정
-
-    // 📢 mappedBy : JPA에서 양방향 관계를 설정할 때 사용, 외래키의 주인을 설정하기 위한 옵션, 설정하지 않으면 외래키의 주인이 누군지 모르기 때문에 설정하는것이 좋음.
-    // 그때 옵션은 외래키 주인 즉, 상대 엔티티의 필드 명(@JoinColumn으로 외래 키를 가지는 필드의 명으로 설정)
-    // 주의할 점은 절대 내 클래스 이름이라고 오해하면 안 되고 외래 키의 주인 즉 상대 엔티티의 조인컬럼으로 설정되고 있는 필드 명이다 라고 기억!
-
-    // @OneToOne(mappedBy = "user")는 Food 엔티티의 user 필드가 이 관계의 주인임을 지정,
-    // 따라서 User 엔티티는 외래 키 컬럼을 가지지 않고, Food 엔티티가 user_id 외래 키 컬럼을 가지게 됨.
-    // mappedBy 를 사용하지 않는 쪽이 관계의 주인이 되고 외래 키 컬럼을 직접 관리, mappedBy를 사용한 쪽은 관계를 읽기 전용으로 가짐.
-
-    // ➡️ 이를 통해서 JPA는 어떤 엔티티가 외래 키를 관리하는지, 즉 DB에서 실제로 외래 키 컬럼을 가지고 있는지 알 수 있음.
-    // 관계의 주인은 외래 키를 직접 관리하고, mappedBy로 지정된 필드는 관계를 읽기 전용으로 참조.
-
-
-//    @OneToOne(mappedBy = "user") // Food 엔티티의 user 필드에 의해 매핑됨
-//
-//    private Food food;
-//
-//    // Food와의 양방햔 관계를 설정하는 메서드
-//    public void addFood(Food food) {
-//        this.food = food; // User 객체에 Food 객체를 설정
-//        food.setUser(this); // Food 객체에 User 객체를 설정하여 양방향 관계를 완성
-//    }
+    // addFoodList() 메서드: 이 메서드는 User 엔티티에 속한 foodList에 새로운 Food 객체를 추가하고,
+    // 이 Food 객체의 userList에 자신(User 엔티티)을 추가하여 양방향 관계를 설정
+    public void addFoodList(Food food) {
+        // this.foodList.add(food);: 현재 User 엔티티의 foodList에 파라미터로 전달된 Food 객체를 추가
+        this.foodList.add(food); // 자신의 foodList에 해당 음식을 추가
+        // food.getUserList().add(this);: 전달된 Food 객체의 getUserList() 메서드를 통해 Food 엔티티의 userList에 현재 User 엔티티를 추가
+        // 이렇게 함으로써 양방향 매핑이 완성
+        food.getUserList().add(this); // 해당 음식의 userList에 자신을 추가(양방향 관계 설정), 외래 키(연관 관계) 설정
+    }
 }
