@@ -29,12 +29,20 @@ public class Food {
     private String name;  // 음식의 이름
     private double price;  // 음식의 가격
 
-    // JPA에서 사용되는 관계 매핑 어노테이션, 일대다 관계를 정의.
-    // 일대다 관계에서는 외래 키(Foreign Key)가 자식 엔티티에 존재
-    // 양방향 관계에서는 반대 방향 엔티티에 ManyToOne 애노테이션을 사용하여 매핑을 추가
-    // 한 엔티티가 다른 엔티티와 일대다 관계를 가질 때 사용, 예를 들어, 하나의 Post 엔티티가 여러 개의 Comment 엔티티를 가지는 경우가 이에 해당
-    @OneToMany
-    @JoinColumn(name = "user_id") // user 필드와 매핑될 외래 키 칼럼을 지정
-//    private User user;  // 해당 음식을 주문한 사용자와의 관계를 나타내는 필드
+    // JPA에서 사용되는 관계 매핑 어노테이션, 다대다 관계를 정의.
+    // Food 엔티티와 User 엔티티 사이의 다대다 관계를 설정
+    // 다대다 관계는 일반적으로 DB에서는 중간 테이블을 사용하여 매핑
+    // ➡️ DB에서 직접적인 다대다 관계를 지원하지 않기 때문에 중간 테이블을 통해 다대다 관계를 구현!
+    @ManyToMany
+
+    // @JoinTable을 사용하여 중간 테이블의 이름과 각 엔티티가 중간 테이블과 어떻게 조인될 지를 설정
+    // name = "orders": 중간 테이블의 이름을 "orders"로 지정, 이 테이블은 Food 엔티티와 User 엔티티 사이의 관계를 저장하는 데 사용
+    @JoinTable(name = "orders", // 중간 테이블 생성 (이 중간 테이블은 각 엔티티의 주 키(FK)를 포함하며, 이를 통해 두 엔티티 사이의 관계를 나타냄.
+            joinColumns = @JoinColumn(name = "food_id"), // 현재 위치인 Food Entity 에서 중간 테이블로 조인할 컬럼 설정, 여기서는 food_id라는 이름의 컬럼을 사용하여 Food 엔티티와 중간 테이블을 조인
+            inverseJoinColumns = @JoinColumn(name = "user_id")) // 반대 위치인 User Entity 에서 중간 테이블로 조인할 컬럼 설정, 여기서는 user_id라는 이름의 컬럼을 사용하여 User 엔티티와 중간 테이블을 조인
+
+
+    // userList는 Food 엔티티가 User 엔티티들과 관계를 맺기 위해 사용되는 컬렉션
+    // 이 필드를 통해서 Food 엔티티는 여러 개의 User 엔티티와 관계를 맺을 수 있음
     private List<User> userList = new ArrayList<>();
 }
