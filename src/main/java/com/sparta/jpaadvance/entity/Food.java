@@ -26,7 +26,9 @@ public class Food {
     private String name;  // 음식의 이름
     private double price;  // 음식의 가격
 
-    @OneToOne // 일대일 관계를 설정하는 어노테이션
+    // JPA에서 사용되는 관계 매핑 어노테이션, 다대일 관계를 정의.
+    // @ManyToOne 어노테이션이 적용된 필드는 DB 테이블에 외래키로 매핑.
+    @ManyToOne
     @JoinColumn(name = "user_id") // user 필드와 매핑될 외래 키 칼럼을 지정
     private User user;  // 해당 음식을 주문한 사용자와의 관계를 나타내는 필드
 }

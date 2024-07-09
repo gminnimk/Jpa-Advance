@@ -39,13 +39,13 @@ public class User {
     // 관계의 주인은 외래 키를 직접 관리하고, mappedBy로 지정된 필드는 관계를 읽기 전용으로 참조.
 
 
-    @OneToOne(mappedBy = "user") // Food 엔티티의 user 필드에 의해 매핑됨
-
-    private Food food;
-
-    // Food와의 양방햔 관계를 설정하는 메서드
-    public void addFood(Food food) {
-        this.food = food; // User 객체에 Food 객체를 설정
-        food.setUser(this); // Food 객체에 User 객체를 설정하여 양방향 관계를 완성
-    }
+//    @OneToOne(mappedBy = "user") // Food 엔티티의 user 필드에 의해 매핑됨
+//
+//    private Food food;
+//
+//    // Food와의 양방햔 관계를 설정하는 메서드
+//    public void addFood(Food food) {
+//        this.food = food; // User 객체에 Food 객체를 설정
+//        food.setUser(this); // Food 객체에 User 객체를 설정하여 양방향 관계를 완성
+//    }
 }
