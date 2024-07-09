@@ -10,7 +10,7 @@ import lombok.Setter;
     ➡️ 각각의 인스턴스는 DB에서 하나의 사용자 레코드를 나타냄
 
     ➡️ 사용자에 대한 정보를 담고 있으며, DB와의 매핑을 통해 사용자 데이터를 영구적으로 저장 & 관리 가능
- */
+*/
 
 @Entity // JPA 엔티티 클래스임을 나타내는 어노테이션
 @Getter
@@ -23,4 +23,29 @@ public class User {
     private Long id;  // 사용자의 고유 식별자
 
     private String name;  // 사용자의 이름
+
+
+    // @OneToOne을 명시함으로써 User와 Food 간의 1대1 양방향 관계 설정
+
+    // 📢 mappedBy : JPA에서 양방향 관계를 설정할 때 사용, 외래키의 주인을 설정하기 위한 옵션, 설정하지 않으면 외래키의 주인이 누군지 모르기 때문에 설정하는것이 좋음.
+    // 그때 옵션은 외래키 주인 즉, 상대 엔티티의 필드 명(@JoinColumn으로 외래 키를 가지는 필드의 명으로 설정)
+    // 주의할 점은 절대 내 클래스 이름이라고 오해하면 안 되고 외래 키의 주인 즉 상대 엔티티의 조인컬럼으로 설정되고 있는 필드 명이다 라고 기억!
+
+    // @OneToOne(mappedBy = "user")는 Food 엔티티의 user 필드가 이 관계의 주인임을 지정,
+    // 따라서 User 엔티티는 외래 키 컬럼을 가지지 않고, Food 엔티티가 user_id 외래 키 컬럼을 가지게 됨.
+    // mappedBy 를 사용하지 않는 쪽이 관계의 주인이 되고 외래 키 컬럼을 직접 관리, mappedBy를 사용한 쪽은 관계를 읽기 전용으로 가짐.
+
+    // ➡️ 이를 통해서 JPA는 어떤 엔티티가 외래 키를 관리하는지, 즉 DB에서 실제로 외래 키 컬럼을 가지고 있는지 알 수 있음.
+    // 관계의 주인은 외래 키를 직접 관리하고, mappedBy로 지정된 필드는 관계를 읽기 전용으로 참조.
+
+
+    @OneToOne(mappedBy = "user") // Food 엔티티의 user 필드에 의해 매핑됨
+
+    private Food food;
+
+    // Food와의 양방햔 관계를 설정하는 메서드
+    public void addFood(Food food) {
+        this.food = food; // User 객체에 Food 객체를 설정
+        food.setUser(this); // Food 객체에 User 객체를 설정하여 양방향 관계를 완성
+    }
 }
