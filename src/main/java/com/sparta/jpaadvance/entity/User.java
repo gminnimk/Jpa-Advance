@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 ✅ User 클래스는 DB의 users 테이블과 매핑되는 JPA 엔터티
 
@@ -23,6 +26,19 @@ public class User {
     private Long id;  // 사용자의 고유 식별자
 
     private String name;  // 사용자의 이름
+
+    // @OneToMany : 한 User가 여러 Food 객체와 관계를 맺을 수 있음을 나타냄
+    // mappedBy = user 는 Food 엔티티에서 user 필드가 이 관계의 주인임을 의미.
+    @OneToMany(mappedBy = "user")
+
+    // foodList는 User가 가지고 있는 여러 Food 객체를 저장하는 리스트.
+    // new ArrayList<>()로 초기화하여 User 객체가 생성될 때 foodList가 빈 리스트로 초기화되도록 함.
+    private List<Food> foodList = new ArrayList<>();
+
+    public void addFoodList(Food food) {
+        this.foodList.add(food);
+        food.setUser(this); // 외래 키(연관 관계) 설정
+    }
 
 
     // @OneToOne을 명시함으로써 User와 Food 간의 1대1 양방향 관계 설정
