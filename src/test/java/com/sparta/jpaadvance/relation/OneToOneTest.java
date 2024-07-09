@@ -67,7 +67,7 @@ public class OneToOneTest {
         food.setPrice(15000);
 
         // 음식 엔티티에 사용자 엔티티 설정 (단방향 관계 설정)
-        food.setUser(user); // 외래 키(연관 관계) 설정
+//        food.setUser(user); // 외래 키(연관 관계) 설정
 
         // 사용자 엔티티 저장
         userRepository.save(user);
@@ -127,7 +127,7 @@ public class OneToOneTest {
         Food food = new Food();
         food.setName("고구마 피자");
         food.setPrice(30000);
-        food.setUser(user); // 외래 키(연관 관계) 설정
+//        food.setUser(user); // 외래 키(연관 관계) 설정
 
         userRepository.save(user); // User 객체를 데이터베이스에 저장
         foodRepository.save(food); // Food 객체를 데이터베이스에 저장
@@ -145,7 +145,7 @@ public class OneToOneTest {
         System.out.println("food.getName() = " + food.getName());
 
         // 음식을 주문한 고객 정보 조회
-        System.out.println("food.getUser().getName() = " + food.getUser().getName());
+//        System.out.println("food.getUser().getName() = " + food.getUser().getName());
     }
 
     @Test

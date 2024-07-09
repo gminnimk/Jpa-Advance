@@ -41,13 +41,13 @@ public class ManyToOneTest {
         Food food = new Food();
         food.setName("후라이드 치킨");
         food.setPrice(15000);
-        food.setUser(user); // User 객체와의 연관 관계 설정 (외래 키 설정)
+//        food.setUser(user); // User 객체와의 연관 관계 설정 (외래 키 설정)
 
         // 두 번째 Food 객체 생성 및 설정
         Food food2 = new Food();
         food2.setName("양념 치킨");
         food2.setPrice(20000);
-        food2.setUser(user); // 동일한 User 객체와의 연관 관계 설정 (외래 키 설정)
+//        food2.setUser(user); // 동일한 User 객체와의 연관 관계 설정 (외래 키 설정)
 
         // User 객체를 데이터베이스에 저장
         userRepository.save(user);
@@ -83,8 +83,8 @@ public class ManyToOneTest {
         user.setName("Robbie");
 
         // Food 객체들을 User 객체에 추가 (외래 키 설정 안함)
-        user.getFoodList().add(food);
-        user.getFoodList().add(food2);
+//        user.getFoodList().add(food);
+//        user.getFoodList().add(food2);
 
         // User 객체와 Food 객체들을 데이터베이스에 저장
         userRepository.save(user);
@@ -119,8 +119,8 @@ public class ManyToOneTest {
         user.setName("Robbie");
 
         // addFoodList 메서드를 통해 Food 객체들을 User 객체에 추가 (외래 키 설정)
-        user.addFoodList(food);
-        user.addFoodList(food2);
+//        user.addFoodList(food);
+//        user.addFoodList(food2);
 
         // User 객체와 Food 객체들을 데이터베이스에 저장
         userRepository.save(user);
@@ -143,13 +143,13 @@ public class ManyToOneTest {
         Food food = new Food();
         food.setName("고구마 피자");
         food.setPrice(30000);
-        food.setUser(user); // 외래 키(연관 관계) 설정
+//        food.setUser(user); // 외래 키(연관 관계) 설정
 
         // 두 번째 Food 객체 생성 및 설정
         Food food2 = new Food();
         food2.setName("아보카도 피자");
         food2.setPrice(50000);
-        food2.setUser(user); // 외래 키(연관 관계) 설정
+//        food2.setUser(user); // 외래 키(연관 관계) 설정
 
         // User 객체와 Food 객체들을 데이터베이스에 저장
         userRepository.save(user);
@@ -170,7 +170,7 @@ public class ManyToOneTest {
         System.out.println("food.getName() = " + food.getName());
 
         // 음식을 주문한 고객 정보 조회
-        System.out.println("food.getUser().getName() = " + food.getUser().getName());
+//        System.out.println("food.getUser().getName() = " + food.getUser().getName());
     }
 
 
@@ -186,10 +186,10 @@ public class ManyToOneTest {
         System.out.println("user.getName() = " + user.getName());
 
         // 해당 고객이 주문한 음식 정보 조회
-        List<Food> foodList = user.getFoodList();
-        for (Food food : foodList) {
-            System.out.println("food.getName() = " + food.getName());
-            System.out.println("food.getPrice() = " + food.getPrice());
-        }
+//        List<Food> foodList = user.getFoodList();
+//        for (Food food : foodList) {
+//            System.out.println("food.getName() = " + food.getName());
+//            System.out.println("food.getPrice() = " + food.getPrice());
+//        }
     }
 }
