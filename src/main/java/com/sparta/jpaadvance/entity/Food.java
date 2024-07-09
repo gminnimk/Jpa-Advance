@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 ✅ Food 클래스는 DB의 food 테이블과 매핑되는 JPA 엔티티
 
@@ -26,9 +29,12 @@ public class Food {
     private String name;  // 음식의 이름
     private double price;  // 음식의 가격
 
-    // JPA에서 사용되는 관계 매핑 어노테이션, 다대일 관계를 정의.
-    // @ManyToOne 어노테이션이 적용된 필드는 DB 테이블에 외래키로 매핑.
-    @ManyToOne
+    // JPA에서 사용되는 관계 매핑 어노테이션, 일대다 관계를 정의.
+    // 일대다 관계에서는 외래 키(Foreign Key)가 자식 엔티티에 존재
+    // 양방향 관계에서는 반대 방향 엔티티에 ManyToOne 애노테이션을 사용하여 매핑을 추가
+    // 한 엔티티가 다른 엔티티와 일대다 관계를 가질 때 사용, 예를 들어, 하나의 Post 엔티티가 여러 개의 Comment 엔티티를 가지는 경우가 이에 해당
+    @OneToMany
     @JoinColumn(name = "user_id") // user 필드와 매핑될 외래 키 칼럼을 지정
-    private User user;  // 해당 음식을 주문한 사용자와의 관계를 나타내는 필드
+//    private User user;  // 해당 음식을 주문한 사용자와의 관계를 나타내는 필드
+    private List<User> userList = new ArrayList<>();
 }
