@@ -44,7 +44,20 @@ public class User {
             - CascadeType.REMOVE: User 엔티티가 삭제될 때 (userRepository.delete(user)),
                                    foodList에 있는 모든 연관된 Food 엔티티들도 함께 삭제
      */
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+
+
+    /*
+    📢 orphanRemoval 옵션을 사용하면 연관관계를 제거하는 것 만으로도 해당하는 엔티티를 삭제할 수 있음
+
+            - cascadeType.Remove 옵션과 마찬가지로 해당 엔티티를 삭제하면 연관된 엔티티를 자동으로 삭제함
+
+            ✔️ @ManyToOne 에노테이션 같은 경우 orphanRemoval 사용 못 함, 왜냐하면 해당 엔티티 객체가 참조하고 있는
+    다른 객체들이 있을 수 있으므로 이 속성으로 orphanRemoval을 가지고 있지 않음
+
+            ✔️ CascadeType.REMOVE 와 orphanRemoval 은 반드시 개발 작업 중 다른 곳에 영향을 주는지 안 주는지 고려하고 설정하는것!
+    */
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Food> foodList = new ArrayList<>();
 
     // Food 엔티티를 foodList에 추가하고, 해당 Food 엔티티의 user 필드에 자신을 설정하는 메서드
