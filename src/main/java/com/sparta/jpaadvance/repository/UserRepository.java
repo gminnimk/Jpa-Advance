@@ -14,4 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // User: JpaRepository가 다루는 엔티티 클래스 타입. 여기서는 User 엔티티를 다루므로 User 클래스를 지정
 // Long: 엔티티의 기본 키 타입. User 엔티티의 기본 키 타입이 Long이므로 Long을 지정
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    // DB에서 name 필드가 주어진 name 과 일치하는 User 엔티티를 검색
+    User findByName(String name);
 }

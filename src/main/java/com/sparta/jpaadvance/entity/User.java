@@ -27,14 +27,15 @@ public class User {
 
     private String name;  // 사용자의 이름
 
+    // 지연 로딩 테스트를 위한 예제로 다대일 양방향 관계로 전환
     /*
-    @OneToMany(mappedBy = "user"): User 엔티티 클래스에서 Order 엔티티와의 양방향 일대다 관계를 정의
-    mappedBy 속성은 Order 엔티티가 User 엔티티에서 어떤 필드에 의해 매핑되었는지를 지정
-    이 경우 Order 엔티티의 user 필드가 User 엔티티와의 관계를 매핑
+    @OneToMany(mappedBy = "user"): User 엔티티 클래스에서 Food 엔티티와의 양방향 일대다 관계를 정의
+    mappedBy 속성은 Food 엔티티가 User 엔티티에서 어떤 필드에 의해 매핑되었는지를 지정
+    이 경우 Food 엔티티의 user 필드가 User 엔티티와의 관계를 매핑
     */
     @OneToMany(mappedBy = "user")
 
-    // private List<Order> orderList = new ArrayList<>();: User 엔티티가 가지는 Order 엔티티의 컬렉션입니다.
-    // 이 필드를 통해 한 User 엔티티가 여러 Order 엔티티와 관계를 맺을 수 있음
-    private List<Order> orderList = new ArrayList<>();
+    // private List<Food> foodList = new ArrayList<>();: User 엔티티가 가지는 Food 엔티티의 컬렉션입니다.
+    // 이 필드를 통해 한 User 엔티티가 여러 Food 엔티티와 관계를 맺을 수 있음
+    private List<Food> foodList = new ArrayList<>();
 }

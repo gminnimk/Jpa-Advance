@@ -29,13 +29,12 @@ public class Food {
     private String name;  // 음식의 이름
     private double price;  // 음식의 가격
 
-    // JPA에서 사용되는 관계 매핑 어노테이션, 일대다 관계를 정의.
-    // Food 엔티티와 Order 엔티티 사이의 일대다 관계를 설정
-    // @OneToMany : 한 엔티티가 여러 개의 다른 엔티티와 일대다 관계를 가질 때 사용
-    // 즉, 하나의 엔티티 인스턴스가 여러 개의 다른 엔티티 인스턴스를 가질 수 있음을 의미
-    @OneToMany(mappedBy = "food")
+    // 지연 로딩 테스트를 위한 예제로 다대일 양방향 관계로 전환
+    @ManyToOne
+    // @ManyToOne(fetch = FetchType.LAZY) // FetchType을 인위적으로 수정 하여 지연 로딩으로 설정,
+    // 📢 오류 발생 원인은 지연 로딩이 된 엔티티의 정보 조화를 위해서는 반드시 영속성 컨텍스트가 존재해야 함
+    // 영속성 컨텍스트가 존재해야 한다는 의미는 스프링 컨테이너 환경에서는 트랜잭션이 적용되어 있어야 한다는 의미와 동일
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // orderList는 Food 엔티티가 Order 엔티티들과 관계를 맺기 위해 사용되는 컬렉션
-    // 이 필드를 통해서 Food 엔티티는 여러 개의 Order 엔티티와 관계를 맺을 수 있음
-    private List<Order> orderList = new ArrayList<>();
 }
