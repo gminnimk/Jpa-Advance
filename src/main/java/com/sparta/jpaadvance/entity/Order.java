@@ -42,6 +42,7 @@ public class Order {
     @JoinColumn(name = "user_id")  // 외래 키 열의 이름을 "user_id"로 지정
     private User user;  // 주문과 관련된 사용자 엔티티
 
+    // 중간 테이블 Order 주문일 추가
     @CreatedDate  // 엔티티가 생성될 때 자동으로 날짜와 시간이 기록되도록
     @Temporal(TemporalType.TIMESTAMP)  // 날짜와 시간을 TIMESTAMP 형식으로 지정
     private LocalDateTime orderDate;  // 주문이 생성된 날짜와 시간
