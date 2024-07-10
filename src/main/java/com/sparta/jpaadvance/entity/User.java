@@ -28,23 +28,13 @@ public class User {
     private String name;  // 사용자의 이름
 
     /*
-    @ManyToMany(mappedBy = "userList"): Food 엔티티 클래스에서 userList 필드를 사용하여 매핑된 양방향 다대다 관계를 정의
-    mappedBy 속성은 User 엔티티가 Food 엔티티에서 어떤 필드에 의해 매핑되었는지를 지정
-    이 경우 userList 필드가 Food 엔티티에서 User 엔티티와의 관계를 매핑
-     */
-    @ManyToMany(mappedBy = "userList")
+    @OneToMany(mappedBy = "user"): User 엔티티 클래스에서 Order 엔티티와의 양방향 일대다 관계를 정의
+    mappedBy 속성은 Order 엔티티가 User 엔티티에서 어떤 필드에 의해 매핑되었는지를 지정
+    이 경우 Order 엔티티의 user 필드가 User 엔티티와의 관계를 매핑
+    */
+    @OneToMany(mappedBy = "user")
 
-    // private List<Food> foodList = new ArrayList<>();: User 엔티티가 가지는 Food 엔티티의 컬렉션입니다.
-    // 이 필드를 통해 한 User 엔티티가 여러 Food 엔티티와 관계를 맺을 수 있음
-    private List<Food> foodList = new ArrayList<>();
-
-    // addFoodList() 메서드: 이 메서드는 User 엔티티에 속한 foodList에 새로운 Food 객체를 추가하고,
-    // 이 Food 객체의 userList에 자신(User 엔티티)을 추가하여 양방향 관계를 설정
-    public void addFoodList(Food food) {
-        // this.foodList.add(food);: 현재 User 엔티티의 foodList에 파라미터로 전달된 Food 객체를 추가
-        this.foodList.add(food); // 자신의 foodList에 해당 음식을 추가
-        // food.getUserList().add(this);: 전달된 Food 객체의 getUserList() 메서드를 통해 Food 엔티티의 userList에 현재 User 엔티티를 추가
-        // 이렇게 함으로써 양방향 매핑이 완성
-        food.getUserList().add(this); // 해당 음식의 userList에 자신을 추가(양방향 관계 설정), 외래 키(연관 관계) 설정
-    }
+    // private List<Order> orderList = new ArrayList<>();: User 엔티티가 가지는 Order 엔티티의 컬렉션입니다.
+    // 이 필드를 통해 한 User 엔티티가 여러 Order 엔티티와 관계를 맺을 수 있음
+    private List<Order> orderList = new ArrayList<>();
 }
